@@ -20,22 +20,13 @@ const config = {
     GamePreload,
     MenuScene,
     LevelSelectScene,
-    PreloadScene1,
-    PreloadScene2,
-    PreloadScene3,
-    PreloadScene4,
-    PreloadScene5,
-    PreloadScene6,
     Stage1,
     Stage2,
     Stage3,
     Stage4,
     Stage5,
     Stage6
-  ],
-  render: {
-    pixelArt: true
-  }
+  ]
 };
 
 const game = new Phaser.Game(config);

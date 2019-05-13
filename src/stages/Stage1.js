@@ -106,7 +106,7 @@ class Stage1 extends Phaser.Scene {
   }
 
   stageDone() {
-    this.scene.start("PreloadScene2");
+    this.scene.start("Stage2");
   }
 
   gameOver() {

@@ -62,7 +62,7 @@ class MenuScene extends Phaser.Scene {
       console.log("out");
     });
     playButton.on("pointerup", () => {
-      this.scene.start("PreloadScene1");
+      this.scene.start("Stage1");
     });
 
     selectLevelButton.on("pointerover", () => {

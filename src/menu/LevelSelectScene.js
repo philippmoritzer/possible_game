@@ -69,7 +69,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_1.on("pointerup", () => {
-      this.scene.start("PreloadScene1");
+      this.scene.start("Stage1");
     });
 
     area_2.on("pointerover", () => {
@@ -85,7 +85,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_2.on("pointerup", () => {
-      this.scene.start("PreloadScene2");
+      this.scene.start("Stage2");
     });
 
     area_3.on("pointerover", () => {

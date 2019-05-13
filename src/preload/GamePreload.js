@@ -79,6 +79,9 @@ class GamePreload extends Phaser.Scene {
       "assets/images/background_layer/stage_2/plain-desert.png"
     );
 
+    this.load.tilemapTiledJSON("map", "assets/tilemaps/level_1.json");
+    this.load.tilemapTiledJSON("map2", "assets/tilemaps/level_2.json");
+
     loadingBar(this);
   }
   create() {
