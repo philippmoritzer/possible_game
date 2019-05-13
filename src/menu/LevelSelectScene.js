@@ -101,7 +101,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_3.on("pointerup", () => {
-      this.scene.start("PreloadScene3");
+      this.scene.start("Stage3");
     });
     area_4.on("pointerover", () => {
       hoverSprite.setVisible(true);
@@ -116,7 +116,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_4.on("pointerup", () => {
-      this.scene.start("PreloadScene4");
+      this.scene.start("Stage4");
     });
   }
 
