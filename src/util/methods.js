@@ -35,6 +35,10 @@ function loadingBar(scene) {
   });
 }
 
+function hitSpike(scene) {
+  gameOver(scene);
+}
+
 function initBackgroundLayerArea1(scene) {
   scene.mountains_back = scene.add.tileSprite(
     GAME_WIDTH / 2,
@@ -102,7 +106,7 @@ function initBackgroundLayerArea2(scene) {
     GAME_HEIGHT / 2,
     2048,
     500,
-    "clouds"
+    "clouds-dark"
   );
   scene.hills_2 = scene.add.tileSprite(
     GAME_WIDTH / 2,
@@ -118,13 +122,13 @@ function initBackgroundLayerArea2(scene) {
     500,
     "hills-desert-1"
   );
-  scene.plain = scene.add.tileSprite(
-    GAME_WIDTH / 2,
-    GAME_HEIGHT - 350,
-    2048,
-    713,
-    "plain-desert"
-  );
+  // scene.plain = scene.add.tileSprite(
+  //   GAME_WIDTH / 2,
+  //   GAME_HEIGHT - 350,
+  //   2048,
+  //   713,
+  //   "plain-desert"
+  // );
 }
 
 function createBasicLevelSetup(scene) {
@@ -182,6 +186,31 @@ function createBasicLevelSetup(scene) {
 
   scene.physics.add.collider(scene.player, scene.belowLayer);
   scene.camera.startFollow(scene.player);
+
+  scene.counterText = scene.add.text(
+    scene.camera.scrollX + GAME_WIDTH / 2,
+    GAME_HEIGHT / 2,
+    scene.counter,
+    {
+      fontSize: "72px",
+      fill: "#fff"
+    }
+  );
+
+  scene.cursors = scene.input.keyboard.createCursorKeys();
+  scene.started = false;
+  scene.input.on("pointerdown", () => {
+    if (scene.player.body.blocked.down) {
+      scene.player.setVelocityY(-1100);
+    }
+  });
+}
+
+function gameOver(scene) {
+  console.log("Game over");
+  scene.gameWon = false;
+  scene.physics.pause();
+  scene.scene.start(scene);
 }
 
 function setSceneBackgroundRelativeToCameraArea1(scene) {
@@ -217,11 +246,11 @@ function setSceneBackgroundRelativeToCameraArea2(scene) {
   scene.clouds.x = halfGameWidth;
   scene.clouds.y = scrollY;
   scene.hills_2.x = halfGameWidth;
-  scene.hills_2.y = baseGameHeight - 150;
+  scene.hills_2.y = baseGameHeight - 250;
   scene.hills_1.x = halfGameWidth;
   scene.hills_1.y = baseGameHeight - 250;
-  scene.plain.x = halfGameWidth;
-  scene.plain.y = baseGameHeight - 350;
+  // scene.plain.x = halfGameWidth;
+  // scene.plain.y = baseGameHeight - 350;
 }
 
 function moveTilesArea1(scene) {
@@ -236,7 +265,7 @@ function moveTilesArea1(scene) {
 function moveTilesArea2(scene) {
   scene.mountains_back.tilePositionX += 0.5;
   scene.mountains_mid.tilePositionX += 1.3;
-  scene.plain.tilePositionX += 3;
+  //scene.plain.tilePositionX += 3;
   scene.clouds.tilePositionX += 1;
   scene.hills_1.tilePositionX += 0.4;
   scene.hills_2.tilePositionX += 0.5;

@@ -1,5 +1,5 @@
 const config = {
-  type: Phaser.AUTO, // Which renderer to use
+  type: Phaser.WEBGL, // Which renderer to use
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
