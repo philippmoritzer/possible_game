@@ -42,11 +42,9 @@ class Stage1 extends Phaser.Scene {
       this
     );
   }
+
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea1(this);
-
-    // Runs once per frame for the duration of the scene
-
     if (startCounter(time, this.counterText)) {
       if (this.gameWon) {
         if (this.cursors.up.isDown) {

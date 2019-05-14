@@ -5,11 +5,17 @@ class MenuScene extends Phaser.Scene {
 
   preload() {}
   create() {
-    this.random_background = Math.random() >= 0.5;
-    if (this.random_background) {
-      initBackgroundLayerArea2(this);
-    } else {
-      initBackgroundLayerArea1(this);
+    this.random_background = getRandomInt(1, 3);
+    switch (this.random_background) {
+      case 1:
+        initBackgroundLayerArea1(this);
+        break;
+      case 2:
+        initBackgroundLayerArea2(this);
+        break;
+      case 3:
+        initBackgroundLayerArea3(this);
+        break;
     }
 
     this.add.image(
@@ -83,10 +89,19 @@ class MenuScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.random_background) {
-      moveTilesArea2(this);
-    } else {
-      moveTilesArea1(this);
+    console.log(this.random_background);
+    switch (this.random_background) {
+      case 1:
+        moveTilesArea1(this);
+
+        break;
+      case 2:
+        moveTilesArea2(this);
+        break;
+      case 3:
+        moveTilesArea3(this);
+
+        break;
     }
   }
 }

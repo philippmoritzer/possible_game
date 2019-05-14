@@ -73,6 +73,6 @@ class Stage2 extends Phaser.Scene {
     }
   }
   stageDone() {
-    this.scene.start("Stage2");
+    this.scene.start("Stage3");
   }
 }

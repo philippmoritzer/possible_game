@@ -83,8 +83,19 @@ class GamePreload extends Phaser.Scene {
       "assets/images/background_layer/stage_2/clouds-dark.png"
     );
 
+    this.load.image(
+      "mountains-back-ice",
+      "assets/images/background_layer/stage_3/mountains-back-ice.png"
+    );
+
+    this.load.image(
+      "ice-2",
+      "assets/images/background_layer/stage_3/ice-2.png"
+    );
+
     this.load.tilemapTiledJSON("map1", "assets/tilemaps/level_1.json");
     this.load.tilemapTiledJSON("map2", "assets/tilemaps/level_2.json");
+    this.load.tilemapTiledJSON("map3", "assets/tilemaps/level_3.json");
 
     loadingBar(this);
   }
