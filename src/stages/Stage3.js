@@ -9,8 +9,11 @@ class Stage3 extends Phaser.Scene {
 
   create() {
     this.gameWon = true;
+    this.reversed = false;
 
     initBackgroundLayerArea3(this);
+
+    this.caveLayer = this.map.createStaticLayer("cave", this.tileset, 0, -1890);
 
     createBasicLevelSetup(this);
 
@@ -43,22 +46,36 @@ class Stage3 extends Phaser.Scene {
 
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea3(this);
-
+    console.log(this.player.x);
     // Runs once per frame for the duration of the scene
     if (startCounter(time, this.counterText)) {
       if (this.gameWon) {
         if (this.cursors.up.isDown) {
-          if (this.player.body.blocked.up) {
-            this.player.setVelocityY(1100);
-          } else if (this.player.body.blocked.down) {
+          if (
+            this.player.x <= 760 &&
+            this.player.x >= 456 &&
+            this.player.body.blocked.down
+          ) {
+            this.reversed = !this.reversed;
+          }
+          if (this.player.body.blocked.down) {
             this.player.setVelocityY(-1100);
           }
         }
         moveTilesArea3(this);
 
-        this.player.setVelocityX(400);
+        if (this.reversed) {
+          this.player.setVelocityX(-400);
+        } else {
+          this.player.setVelocityX(400);
+        }
+
         if (!this.player.body.blocked.down || !this.player.body.blocked.down) {
-          this.player.setVelocityX(350);
+          if (this.reversed) {
+            this.player.setVelocityX(-350);
+          } else {
+            this.player.setVelocityX(350);
+          }
         }
 
         if (this.player.y > 5000) {
@@ -68,5 +85,6 @@ class Stage3 extends Phaser.Scene {
         this.physics.pause();
       }
     }
+    console.log(this.reversed);
   }
 }

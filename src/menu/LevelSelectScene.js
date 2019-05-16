@@ -31,15 +31,10 @@ class LevelSelectScene extends Phaser.Scene {
     let area_4 = this.add.image(
       this.game.renderer.width / 2,
       this.game.renderer.height / 2 + 300,
-      "area_1_thumbail"
+      "area_4_thumbail"
     );
 
-    this.add.image(
-      100,
-
-      this.game.renderer.height - 100,
-      "back_button"
-    );
+    this.add.image(100, this.game.renderer.height - 100, "back_button");
 
     let hoverSprite = this.add.sprite(100, 100, "dude");
     hoverSprite.setVisible(false);
@@ -61,6 +56,7 @@ class LevelSelectScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = area_1.x - area_1.width;
       hoverSprite.y = area_1.y;
+
       console.log("hover");
     });
 

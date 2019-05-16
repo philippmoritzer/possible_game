@@ -32,6 +32,7 @@ class GamePreload extends Phaser.Scene {
       "area_2_thumbail",
       "./assets/gui/levelselect/desert_3d.png"
     );
+    this.load.image("area_4_thumbail", "./assets/gui/levelselect/moon_3d.png");
 
     this.load.image(
       "mountains-back",
@@ -87,15 +88,33 @@ class GamePreload extends Phaser.Scene {
       "mountains-back-ice",
       "assets/images/background_layer/stage_3/mountains-back-ice.png"
     );
+    this.load.image(
+      "mountains-mid-ice",
+      "assets/images/background_layer/stage_3/mountains-mid-ice.png"
+    );
 
     this.load.image(
       "ice-2",
       "assets/images/background_layer/stage_3/ice-2.png"
     );
 
+    this.load.image(
+      "mountains-mid-moon",
+      "assets/images/background_layer/stage_4/mountains-mid-moon.png"
+    );
+    this.load.image(
+      "landscape-moon",
+      "assets/images/background_layer/stage_4/landscape-moon.png"
+    );
+    this.load.image(
+      "earth",
+      "assets/images/background_layer/stage_4/earth.png"
+    );
+
     this.load.tilemapTiledJSON("map1", "assets/tilemaps/level_1.json");
     this.load.tilemapTiledJSON("map2", "assets/tilemaps/level_2.json");
     this.load.tilemapTiledJSON("map3", "assets/tilemaps/level_3.json");
+    this.load.tilemapTiledJSON("map4", "assets/tilemaps/level_4.json");
 
     loadingBar(this);
   }

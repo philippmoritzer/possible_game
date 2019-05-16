@@ -10,12 +10,12 @@ class Stage2 extends Phaser.Scene {
 
   create() {
     this.gameWon = true;
+    this.doublespeed = false;
 
     initBackgroundLayerArea2(this);
     this.caveLayer = this.map.createStaticLayer("cave", this.tileset, 0, -1890);
 
     createBasicLevelSetup(this);
-    this.cameras.main.backgroundColor.setTo(56, 5, 5);
 
     this.physics.add.collider(
       this.spikeLayer,
@@ -69,6 +69,10 @@ class Stage2 extends Phaser.Scene {
         }
       } else {
         this.physics.pause();
+      }
+      if (this.player.x > 1750) {
+        this.doublespeed = true;
+        this.player.setVelocityX(800);
       }
     }
   }

@@ -124,18 +124,10 @@ function initBackgroundLayerArea2(scene) {
     500,
     "hills-desert-1"
   );
-
-  // scene.plain = scene.add.tileSprite(
-  //   GAME_WIDTH / 2,
-  //   GAME_HEIGHT - 350,
-  //   2048,
-  //   713,
-  //   "plain-desert"
-  // );
 }
 
 function initBackgroundLayerArea3(scene) {
-  scene.cameras.main.backgroundColor.setTo(24, 13, 86);
+  scene.cameras.main.backgroundColor.setTo(0, 37, 96);
 
   scene.mountains_back = scene.add.tileSprite(
     GAME_WIDTH / 2,
@@ -144,12 +136,13 @@ function initBackgroundLayerArea3(scene) {
     894,
     "mountains-back-ice"
   );
+
   scene.mountains_mid = scene.add.tileSprite(
     GAME_WIDTH / 2,
     GAME_HEIGHT / 2 + 200,
     2048,
-    770,
-    "ice-2"
+    894,
+    "mountains-mid-ice"
   );
 
   scene.clouds = scene.add.tileSprite(
@@ -157,7 +150,33 @@ function initBackgroundLayerArea3(scene) {
     GAME_HEIGHT / 2,
     2048,
     500,
-    "clouds-dark"
+    "clouds"
+  );
+}
+
+function initBackgroundLayerArea4(scene) {
+  scene.cameras.main.backgroundColor.setTo(0, 0, 0);
+
+  scene.earth = scene.add.tileSprite(
+    GAME_WIDTH / 2,
+    GAME_HEIGHT / 2 + 300,
+    364,
+    337,
+    "earth"
+  );
+  scene.mountains_mid = scene.add.tileSprite(
+    GAME_WIDTH / 2,
+    GAME_HEIGHT / 2 + 200,
+    2048,
+    770,
+    "mountains-mid-moon"
+  );
+  scene.landscape = scene.add.tileSprite(
+    GAME_WIDTH / 2,
+    GAME_HEIGHT / 2 + 200,
+    2048,
+    713,
+    "landscape-moon"
   );
 }
 
@@ -292,7 +311,21 @@ function setSceneBackgroundRelativeToCameraArea3(scene) {
   scene.mountains_back.x = halfGameWidth;
   scene.mountains_back.y = halfGameHeight;
   scene.mountains_mid.x = halfGameWidth;
-  scene.mountains_mid.y = baseGameHeight - 350;
+  scene.mountains_mid.y = halfGameHeight + 200;
+}
+
+function setSceneBackgroundRelativeToCameraArea4(scene) {
+  var scrollY = scene.camera.scrollY;
+  var scrollX = scene.camera.scrollX;
+  var halfGameHeight = scrollY + GAME_HEIGHT / 2;
+  var halfGameWidth = scrollX + GAME_WIDTH / 2;
+  var baseGameHeight = scrollY + GAME_HEIGHT;
+  scene.mountains_mid.x = halfGameWidth;
+  scene.mountains_mid.y = halfGameHeight;
+  scene.landscape.x = halfGameWidth;
+  scene.landscape.y = baseGameHeight - 350;
+  scene.earth.x = halfGameWidth;
+  scene.earth.y = halfGameHeight;
 }
 
 function moveTilesArea1(scene) {
@@ -306,15 +339,19 @@ function moveTilesArea1(scene) {
 
 function moveTilesArea2(scene) {
   scene.mountains_back.tilePositionX += 0.5;
-  scene.mountains_mid.tilePositionX += 1.3;
-  //scene.plain.tilePositionX += 3;
+  scene.mountains_mid.tilePositionX += 1;
   scene.clouds.tilePositionX += 1;
-  scene.hills_1.tilePositionX += 0.4;
-  scene.hills_2.tilePositionX += 0.5;
+  scene.hills_1.tilePositionX += 1.8;
+  scene.hills_2.tilePositionX += 1.3;
 }
 
 function moveTilesArea3(scene) {
   scene.mountains_back.tilePositionX += 0.5;
   scene.mountains_mid.tilePositionX += 1.3;
   scene.clouds.tilePositionX += 1;
+}
+
+function moveTilesArea4(scene) {
+  scene.mountains_mid.tilePositionX += 0.5;
+  scene.landscape.tilePositionX += 1.3;
 }

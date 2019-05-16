@@ -5,7 +5,7 @@ class MenuScene extends Phaser.Scene {
 
   preload() {}
   create() {
-    this.random_background = getRandomInt(1, 3);
+    this.random_background = getRandomInt(1, 4);
     switch (this.random_background) {
       case 1:
         initBackgroundLayerArea1(this);
@@ -15,6 +15,9 @@ class MenuScene extends Phaser.Scene {
         break;
       case 3:
         initBackgroundLayerArea3(this);
+        break;
+      case 4:
+        initBackgroundLayerArea4(this);
         break;
     }
 
@@ -100,7 +103,9 @@ class MenuScene extends Phaser.Scene {
         break;
       case 3:
         moveTilesArea3(this);
-
+        break;
+      case 4:
+        moveTilesArea4(this);
         break;
     }
   }
