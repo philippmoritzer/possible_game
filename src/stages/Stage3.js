@@ -10,6 +10,7 @@ class Stage3 extends Phaser.Scene {
   create() {
     this.gameWon = true;
     this.reversed = false;
+    this.reversePoint = false;
 
     initBackgroundLayerArea3(this);
 
@@ -52,29 +53,42 @@ class Stage3 extends Phaser.Scene {
       if (this.gameWon) {
         if (this.cursors.up.isDown) {
           if (
-            this.player.x <= 760 &&
-            this.player.x >= 456 &&
-            this.player.body.blocked.down
+            ((this.player.x <= 760 && this.player.x >= 456) ||
+              (this.player.x <= 2936 && this.player.x >= 2632)) &&
+            this.player.body.blocked.down &&
+            !this.reversePoint
           ) {
             this.reversed = !this.reversed;
           }
+
           if (this.player.body.blocked.down) {
             this.player.setVelocityY(-1100);
           }
         }
         moveTilesArea3(this);
-
-        if (this.reversed) {
+        if (this.reversePoint) {
           this.player.setVelocityX(-400);
         } else {
-          this.player.setVelocityX(400);
+          if (this.reversed) {
+            this.player.setVelocityX(-400);
+          } else {
+            this.player.setVelocityX(400);
+          }
+        }
+
+        if (this.player.x >= 5320 && !this.reversePoint) {
+          this.reversePoint = true;
         }
 
         if (!this.player.body.blocked.down || !this.player.body.blocked.down) {
-          if (this.reversed) {
+          if (this.reversePoint === true) {
             this.player.setVelocityX(-350);
           } else {
-            this.player.setVelocityX(350);
+            if (this.reversed) {
+              this.player.setVelocityX(-350);
+            } else {
+              this.player.setVelocityX(350);
+            }
           }
         }
 
@@ -85,6 +99,8 @@ class Stage3 extends Phaser.Scene {
         this.physics.pause();
       }
     }
-    console.log(this.reversed);
+  }
+  stageDone() {
+    this.scene.start("Stage4");
   }
 }
