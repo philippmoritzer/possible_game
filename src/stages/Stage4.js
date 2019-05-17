@@ -70,4 +70,9 @@ class Stage4 extends Phaser.Scene {
       }
     }
   }
+
+  stageDone() {
+    //TODO
+    this.scene.start("Menu");
+  }
 }

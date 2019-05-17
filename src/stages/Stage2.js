@@ -60,7 +60,7 @@ class Stage2 extends Phaser.Scene {
         moveTilesArea2(this);
 
         this.player.setVelocityX(400);
-        if (!this.player.body.blocked.down || !this.player.body.blocked.down) {
+        if (!this.player.body.blocked.down) {
           this.player.setVelocityX(350);
         }
 

@@ -26,13 +26,28 @@ class GamePreload extends Phaser.Scene {
 
     this.load.image(
       "area_1_thumbail",
-      "./assets/gui/levelselect/mountains_3d.png"
+      "./assets/gui/levelselect/mountains.png"
+    );
+    this.load.image("area_2_thumbail", "./assets/gui/levelselect/desert.png");
+    this.load.image("area_3_thumbail", "./assets/gui/levelselect/ice.png");
+    this.load.image("area_4_thumbail", "./assets/gui/levelselect/moon.png");
+
+    this.load.image(
+      "area_1_thumbnail_text",
+      "./assets/gui/levelselect/mountains_text.png"
     );
     this.load.image(
-      "area_2_thumbail",
-      "./assets/gui/levelselect/desert_3d.png"
+      "area_2_thumbnail_text",
+      "./assets/gui/levelselect/desert_text.png"
     );
-    this.load.image("area_4_thumbail", "./assets/gui/levelselect/moon_3d.png");
+    this.load.image(
+      "area_3_thumbnail_text",
+      "./assets/gui/levelselect/ice_text.png"
+    );
+    this.load.image(
+      "area_4_thumbnail_text",
+      "./assets/gui/levelselect/moon_text.png"
+    );
 
     this.load.image(
       "mountains-back",

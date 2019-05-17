@@ -20,17 +20,17 @@ class LevelSelectScene extends Phaser.Scene {
     );
     let area_2 = this.add.image(
       this.game.renderer.width / 2,
-      this.game.renderer.height / 2 - 100,
+      this.game.renderer.height / 2 - 150,
       "area_2_thumbail"
     );
     let area_3 = this.add.image(
       this.game.renderer.width / 2,
-      this.game.renderer.height / 2 + 100,
-      "area_1_thumbail"
+      this.game.renderer.height / 2 + 0,
+      "area_3_thumbail"
     );
     let area_4 = this.add.image(
       this.game.renderer.width / 2,
-      this.game.renderer.height / 2 + 300,
+      this.game.renderer.height / 2 + 150,
       "area_4_thumbail"
     );
 
