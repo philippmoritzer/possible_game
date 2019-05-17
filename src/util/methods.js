@@ -35,8 +35,8 @@ function loadingBar(scene) {
   });
 }
 
-function hitSpike(scene) {
-  gameOver(scene);
+function hitSpike(scene, sceneKey) {
+  gameOver(scene, sceneKey);
 }
 
 function initBackgroundLayerArea1(scene) {
@@ -253,11 +253,30 @@ function createBasicLevelSetup(scene) {
       scene.player.setVelocityY(-1100);
     }
   });
+
+  scene.triesText = scene.add.text(16, 16, "Versuch:" + gameState.killCount, {
+    fontSize: "32px",
+    fill: "#fff"
+  });
+  if (practiceMode) {
+    scene.triesText.setText("Practice Mode");
+  }
+  scene.stageText = scene.add.text(16, 64, scene.sceneKey, {
+    fontSize: "32px",
+    fill: "#fff"
+  });
+  scene.triesText.setScrollFactor(0);
+  scene.stageText.setScrollFactor(0);
 }
 
-function gameOver(scene) {
+function gameOver(scene, sceneKey) {
   console.log("Game over");
   scene.gameWon = false;
+
+  gameState.scene = sceneKey;
+  gameState.killCount++;
+  localStorage.setItem("game-state", JSON.stringify(gameState));
+
   scene.physics.pause();
   scene.scene.start(scene);
 }

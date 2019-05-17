@@ -11,18 +11,19 @@ class GamePreload extends Phaser.Scene {
       frameHeight: 48
     });
     this.load.image("tileset", "assets/tilesets/Platformer tiles.png");
-
-    this.load.image("title_bg", "./assets/gui/title_bg.jpg");
     this.load.image("options_button", "./assets/gui/options_button.png");
     this.load.image("play_button", "./assets/gui/play_button.png");
     this.load.image("logo", "./assets/gui/logo.png");
-
     this.load.image("back_button", "./assets/gui/back_button.png");
+    this.load.image("highscore_button", "./assets/gui/highscore_button.png");
+    this.load.image(
+      "resume_game_button",
+      "./assets/gui/resume_game_button.png"
+    );
     this.load.image(
       "select_level_button",
       "./assets/gui/select_level_button.png"
     );
-    this.load.image("select_level_logo", "./assets/gui/select_level_logo.png");
 
     this.load.image(
       "area_1_thumbail",
@@ -31,6 +32,11 @@ class GamePreload extends Phaser.Scene {
     this.load.image("area_2_thumbail", "./assets/gui/levelselect/desert.png");
     this.load.image("area_3_thumbail", "./assets/gui/levelselect/ice.png");
     this.load.image("area_4_thumbail", "./assets/gui/levelselect/moon.png");
+
+    this.load.image(
+      "select_level_subtitle",
+      "./assets/gui/select_level_subtitle.png"
+    );
 
     this.load.image(
       "area_1_thumbnail_text",

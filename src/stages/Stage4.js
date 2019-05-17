@@ -9,6 +9,7 @@ class Stage4 extends Phaser.Scene {
 
   create() {
     this.gameWon = true;
+    this.sceneKey = "Stage4";
 
     initBackgroundLayerArea4(this);
 
@@ -18,7 +19,7 @@ class Stage4 extends Phaser.Scene {
       this.spikeLayer,
       this.player,
       () => {
-        hitSpike(this);
+        hitSpike(this, this.sceneKey);
       },
       null,
       this
@@ -40,6 +41,7 @@ class Stage4 extends Phaser.Scene {
       this
     );
     this.physics.world.gravity.y = 2000;
+    this.stageText.setText("The Moon");
   }
 
   update(time, delta) {
@@ -63,7 +65,7 @@ class Stage4 extends Phaser.Scene {
         }
 
         if (this.player.y > 5000) {
-          gameOver(this);
+          gameOver(this, this.sceneKey);
         }
       } else {
         this.physics.pause();
@@ -73,6 +75,18 @@ class Stage4 extends Phaser.Scene {
 
   stageDone() {
     //TODO
+    if (!practiceMode) {
+      if (!localStorage.getItem("highscore")) {
+        localStorage.setItem("highscore", gameState.killCount);
+      } else {
+        if (gameState.killCount < localStorage.getItem("highscore")) {
+          localStorage.setItem("highscore", gameState.killCount);
+        }
+      }
+      gameState = emptyGameState;
+    }
+    localStorage.removeItem("game-state");
+
     this.scene.start("Menu");
   }
 }

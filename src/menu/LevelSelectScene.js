@@ -5,36 +5,74 @@ class LevelSelectScene extends Phaser.Scene {
 
   preload() {}
   create() {
-    initBackgroundLayerArea1(this);
+    this.random_background = getRandomInt(1, 4);
+    switch (this.random_background) {
+      case 1:
+        initBackgroundLayerArea1(this);
+        break;
+      case 2:
+        initBackgroundLayerArea2(this);
+        break;
+      case 3:
+        initBackgroundLayerArea3(this);
+        break;
+      case 4:
+        initBackgroundLayerArea4(this);
+        break;
+    }
 
     this.add.image(
       this.game.renderer.width / 2,
-      this.game.renderer.height * 0.1,
-      "select_level_logo"
+      this.game.renderer.height * 0.9,
+      "select_level_subtitle"
     );
 
     let area_1 = this.add.image(
-      this.game.renderer.width / 2,
-      this.game.renderer.height / 2 - 300,
+      this.game.renderer.width / 2 - 200,
+      this.game.renderer.height / 2 - 200,
       "area_1_thumbail"
     );
+    let area_1_text = this.add.image(
+      this.game.renderer.width / 2 + 150,
+      this.game.renderer.height / 2 - 200,
+      "area_1_thumbnail_text"
+    );
     let area_2 = this.add.image(
-      this.game.renderer.width / 2,
-      this.game.renderer.height / 2 - 150,
+      this.game.renderer.width / 2 - 200,
+      this.game.renderer.height / 2 - 100,
       "area_2_thumbail"
     );
+    let area_2_text = this.add.image(
+      this.game.renderer.width / 2 + 185,
+      this.game.renderer.height / 2 - 100,
+      "area_2_thumbnail_text"
+    );
     let area_3 = this.add.image(
-      this.game.renderer.width / 2,
+      this.game.renderer.width / 2 - 200,
       this.game.renderer.height / 2 + 0,
       "area_3_thumbail"
     );
+    let area_3_text = this.add.image(
+      this.game.renderer.width / 2 + 200,
+      this.game.renderer.height / 2 - 0,
+      "area_3_thumbnail_text"
+    );
     let area_4 = this.add.image(
-      this.game.renderer.width / 2,
-      this.game.renderer.height / 2 + 150,
+      this.game.renderer.width / 2 - 200,
+      this.game.renderer.height / 2 + 100,
       "area_4_thumbail"
     );
+    let area_4_text = this.add.image(
+      this.game.renderer.width / 2 + 60,
+      this.game.renderer.height / 2 + 100,
+      "area_4_thumbnail_text"
+    );
 
-    this.add.image(100, this.game.renderer.height - 100, "back_button");
+    let backButton = this.add.image(
+      100,
+      this.game.renderer.height - 100,
+      "back_button"
+    );
 
     let hoverSprite = this.add.sprite(100, 100, "dude");
     hoverSprite.setVisible(false);
@@ -50,6 +88,22 @@ class LevelSelectScene extends Phaser.Scene {
     area_2.setInteractive();
     area_3.setInteractive();
     area_4.setInteractive();
+    backButton.setInteractive();
+
+    backButton.on("pointerover", () => {
+      hoverSprite.setVisible(true);
+      hoverSprite.play("walk");
+      hoverSprite.x = backButton.x + backButton.width;
+      hoverSprite.y = backButton.y;
+    });
+
+    backButton.on("pointerout", () => {
+      hoverSprite.setVisible(false);
+    });
+
+    backButton.on("pointerup", () => {
+      this.scene.start("Menu");
+    });
 
     area_1.on("pointerover", () => {
       hoverSprite.setVisible(true);
@@ -65,6 +119,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_1.on("pointerup", () => {
+      practiceMode = true;
       this.scene.start("Stage1");
     });
 
@@ -81,6 +136,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_2.on("pointerup", () => {
+      practiceMode = true;
       this.scene.start("Stage2");
     });
 
@@ -97,6 +153,7 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_3.on("pointerup", () => {
+      practiceMode = true;
       this.scene.start("Stage3");
     });
     area_4.on("pointerover", () => {
@@ -112,9 +169,27 @@ class LevelSelectScene extends Phaser.Scene {
       console.log("out");
     });
     area_4.on("pointerup", () => {
+      practiceMode = true;
       this.scene.start("Stage4");
     });
   }
 
-  update() {}
+  update() {
+    console.log(this.random_background);
+    switch (this.random_background) {
+      case 1:
+        moveTilesArea1(this);
+
+        break;
+      case 2:
+        moveTilesArea2(this);
+        break;
+      case 3:
+        moveTilesArea3(this);
+        break;
+      case 4:
+        moveTilesArea4(this);
+        break;
+    }
+  }
 }

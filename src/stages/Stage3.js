@@ -11,6 +11,7 @@ class Stage3 extends Phaser.Scene {
     this.gameWon = true;
     this.reversed = false;
     this.reversePoint = false;
+    this.sceneKey = "Stage3";
 
     initBackgroundLayerArea3(this);
 
@@ -22,7 +23,7 @@ class Stage3 extends Phaser.Scene {
       this.spikeLayer,
       this.player,
       () => {
-        hitSpike(this);
+        hitSpike(this, this.sceneKey);
       },
       null,
       this
@@ -43,6 +44,7 @@ class Stage3 extends Phaser.Scene {
       null,
       this
     );
+    this.stageText.setText("Karakoram Mountains");
   }
 
   update(time, delta) {
@@ -93,7 +95,7 @@ class Stage3 extends Phaser.Scene {
         }
 
         if (this.player.y > 5000) {
-          gameOver(this);
+          gameOver(this, this.sceneKey);
         }
       } else {
         this.physics.pause();
@@ -101,6 +103,11 @@ class Stage3 extends Phaser.Scene {
     }
   }
   stageDone() {
-    this.scene.start("Stage4");
+    if (!practiceMode) {
+      gameState.scene = "Stage4";
+      this.scene.start("Stage4");
+    } else {
+      this.scene.start("Menu");
+    }
   }
 }

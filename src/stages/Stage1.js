@@ -9,6 +9,7 @@ class Stage1 extends Phaser.Scene {
   }
 
   create() {
+    this.sceneKey = "Stage1";
     this.counter = 3;
     this.started = false;
     this.gameWon = true;
@@ -20,7 +21,7 @@ class Stage1 extends Phaser.Scene {
       this.spikeLayer,
       this.player,
       () => {
-        hitSpike(this);
+        hitSpike(this, this.sceneKey);
       },
       null,
       this
@@ -41,6 +42,10 @@ class Stage1 extends Phaser.Scene {
       null,
       this
     );
+
+    this.triesText.setFill("#000");
+    this.stageText.setFill("#000");
+    this.stageText.setText("Bluecliff Hills");
   }
 
   update(time, delta) {
@@ -62,7 +67,10 @@ class Stage1 extends Phaser.Scene {
         }
 
         if (this.player.y > 5000) {
-          gameOver(this);
+          gameOver(this, this.sceneKey);
+        }
+        if (this.player.y < -5000) {
+          gameOver(this, this.sceneKey);
         }
       } else {
         this.physics.pause();
@@ -84,6 +92,11 @@ class Stage1 extends Phaser.Scene {
   }
 
   stageDone() {
-    this.scene.start("Stage2");
+    if (!practiceMode) {
+      gameState.scene = "Stage2";
+      this.scene.start("Stage2");
+    } else {
+      this.scene.start("Menu");
+    }
   }
 }
