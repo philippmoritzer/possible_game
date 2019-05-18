@@ -88,15 +88,14 @@ class MenuScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = playButton.x - playButton.width;
       hoverSprite.y = playButton.y;
-      console.log("hover");
     });
 
     playButton.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     playButton.on("pointerup", () => {
       practiceMode = false;
+      this.music.stop();
       this.scene.start("Stage1");
     });
 
@@ -105,14 +104,13 @@ class MenuScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = selectLevelButton.x - selectLevelButton.width;
       hoverSprite.y = selectLevelButton.y;
-      console.log("hover");
     });
 
     selectLevelButton.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     selectLevelButton.on("pointerup", () => {
+      this.music.stop();
       this.scene.start("LevelSelect");
     });
 
@@ -121,23 +119,22 @@ class MenuScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = resumeGameButton.x - resumeGameButton.width;
       hoverSprite.y = resumeGameButton.y;
-      console.log("hover");
     });
 
     resumeGameButton.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     resumeGameButton.on("pointerup", () => {
       practiceMode = false;
       gameState = JSON.parse(localStorage.getItem("game-state"));
-      console.log(gameState.scene);
+      this.music.stop();
       this.scene.start(gameState.scene);
     });
+
+    this.playMusic();
   }
 
   update() {
-    console.log(this.random_background);
     switch (this.random_background) {
       case 1:
         moveTilesArea1(this);
@@ -153,5 +150,10 @@ class MenuScene extends Phaser.Scene {
         moveTilesArea4(this);
         break;
     }
+  }
+
+  playMusic() {
+    this.music = this.sound.add("menu_audio", musicConfig);
+    this.music.play();
   }
 }

@@ -46,19 +46,33 @@ class Stage1 extends Phaser.Scene {
     this.triesText.setFill("#000");
     this.stageText.setFill("#000");
     this.stageText.setText("Bluecliff Hills");
+    const debugGraphics = this.add.graphics().setAlpha(0.75);
+    this.spikeLayer.renderDebug(debugGraphics, {
+      tileColor: null, // Color of non-colliding tiles
+      collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
+      faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
+    });
+    this.playMusic();
   }
 
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea1(this);
+
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      initPauseScreen(this);
+    }
     if (startCounter(time, this.counterText)) {
       if (this.gameWon) {
         if (this.cursors.up.isDown) {
           if (this.player.body.blocked.up) {
+            playJumpSound(this);
             this.player.setVelocityY(1100);
           } else if (this.player.body.blocked.down) {
+            playJumpSound(this);
             this.player.setVelocityY(-1100);
           }
         }
+
         moveTilesArea1(this);
 
         this.player.setVelocityX(400);
@@ -92,11 +106,17 @@ class Stage1 extends Phaser.Scene {
   }
 
   stageDone() {
+    this.music.stop();
     if (!practiceMode) {
       gameState.scene = "Stage2";
       this.scene.start("Stage2");
     } else {
       this.scene.start("Menu");
     }
+  }
+
+  playMusic() {
+    this.music = this.sound.add("hills_audio", musicConfig);
+    this.music.play();
   }
 }

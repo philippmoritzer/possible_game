@@ -44,18 +44,22 @@ class Stage2 extends Phaser.Scene {
       this
     );
     this.stageText.setText("Landmeadow Desert");
+    this.playMusic();
   }
 
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea2(this);
 
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      initPauseScreen(this);
+    }
+
     // Runs once per frame for the duration of the scene
     if (startCounter(time, this.counterText)) {
       if (this.gameWon) {
         if (this.cursors.up.isDown) {
-          if (this.player.body.blocked.up) {
-            this.player.setVelocityY(1100);
-          } else if (this.player.body.blocked.down) {
+          if (this.player.body.blocked.down) {
+            playJumpSound(this);
             this.player.setVelocityY(-1100);
           }
         }
@@ -79,11 +83,16 @@ class Stage2 extends Phaser.Scene {
     }
   }
   stageDone() {
+    this.music.stop();
     if (!practiceMode) {
       gameState.scene = "Stage3";
       this.scene.start("Stage3");
     } else {
       this.scene.start("Menu");
     }
+  }
+  playMusic() {
+    this.music = this.sound.add("desert_audio", musicConfig);
+    this.music.play();
   }
 }

@@ -42,18 +42,25 @@ class Stage4 extends Phaser.Scene {
     );
     this.physics.world.gravity.y = 2000;
     this.stageText.setText("The Moon");
+    this.playMusic();
   }
 
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea4(this);
+
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      initPauseScreen(this);
+    }
 
     // Runs once per frame for the duration of the scene
     if (startCounter(time, this.counterText)) {
       if (this.gameWon) {
         if (this.cursors.up.isDown) {
           if (this.player.body.blocked.up) {
+            playJumpSound(this);
             this.player.setVelocityY(1100);
           } else if (this.player.body.blocked.down) {
+            playJumpSound(this);
             this.player.setVelocityY(-1100);
           }
         }
@@ -74,7 +81,7 @@ class Stage4 extends Phaser.Scene {
   }
 
   stageDone() {
-    //TODO
+    this.music.stop();
     if (!practiceMode) {
       if (!localStorage.getItem("highscore")) {
         localStorage.setItem("highscore", gameState.killCount);
@@ -88,5 +95,10 @@ class Stage4 extends Phaser.Scene {
     localStorage.removeItem("game-state");
 
     this.scene.start("Menu");
+  }
+
+  playMusic() {
+    this.music = this.sound.add("moon_audio", musicConfig);
+    this.music.play();
   }
 }

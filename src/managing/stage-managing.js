@@ -31,7 +31,6 @@ function loadingBar(scene) {
       scene.game.renderer.width * percent,
       50
     );
-    console.log(percent);
   });
 }
 
@@ -228,7 +227,14 @@ function createBasicLevelSetup(scene) {
   scene.anims.create({
     key: "right",
     frames: scene.anims.generateFrameNumbers("dude", { start: 6, end: 8 }),
-    frameRate: 60,
+    frameRate: 5,
+    repeat: -1
+  });
+
+  scene.anims.create({
+    key: "up",
+    frames: scene.anims.generateFrameNumbers("dude", { start: 1, end: 1 }),
+    frameRate: 5,
     repeat: -1
   });
   scene.player.anims.play("right", true);
@@ -251,8 +257,18 @@ function createBasicLevelSetup(scene) {
   scene.input.on("pointerdown", () => {
     if (scene.player.body.blocked.down) {
       scene.player.setVelocityY(-1100);
+      playJumpSound(this);
+    } else if (scene.player.body.blocked.up) {
+      playJumpSound(this);
+      scene.player.setVelocityY(1100);
     }
   });
+
+  scene.spacebar = scene.input.keyboard.addKey(
+    Phaser.Input.Keyboard.KeyCodes.SPACE
+  );
+
+  scene.pause = false;
 
   scene.triesText = scene.add.text(16, 16, "Versuch:" + gameState.killCount, {
     fontSize: "32px",
@@ -270,11 +286,15 @@ function createBasicLevelSetup(scene) {
 }
 
 function gameOver(scene, sceneKey) {
-  console.log("Game over");
+  var sound = scene.sound.add("lose", soundConfig);
+  sound.play();
   scene.gameWon = false;
+  scene.music.stop();
 
-  gameState.scene = sceneKey;
-  gameState.killCount++;
+  if (!practiceMode) {
+    gameState.scene = sceneKey;
+    gameState.killCount++;
+  }
   localStorage.setItem("game-state", JSON.stringify(gameState));
 
   scene.physics.pause();
@@ -373,4 +393,43 @@ function moveTilesArea3(scene) {
 function moveTilesArea4(scene) {
   scene.mountains_mid.tilePositionX += 0.5;
   scene.landscape.tilePositionX += 1.3;
+}
+
+function playJumpSound(scene) {
+  var sound = scene.sound.add("jump", soundConfig);
+  sound.play();
+}
+
+function initPauseScreen(scene) {
+  scene.pause = !scene.pause;
+
+  if (scene.pause) {
+    scene.physics.pause();
+    scene.pauseInfoText = scene.add.text(
+      game.renderer.width * 0.3,
+      100,
+      "Game paused. Press 'space' to continue.",
+      {
+        fontSize: "32px",
+        fill: "#fff"
+      }
+    );
+    scene.quitText = scene.add.text(game.renderer.width - 200, 16, "Quit", {
+      fontSize: "32px",
+      fill: "#fff"
+    });
+    scene.pauseInfoText.setScrollFactor(0);
+    scene.quitText.setScrollFactor(0);
+
+    scene.quitText.setInteractive();
+
+    scene.quitText.on("pointerup", () => {
+      scene.music.stop();
+      scene.scene.start("Menu");
+    });
+  } else {
+    scene.pauseInfoText.destroy();
+    scene.quitText.destroy();
+    scene.physics.resume();
+  }
 }

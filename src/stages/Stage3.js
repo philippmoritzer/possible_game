@@ -45,11 +45,15 @@ class Stage3 extends Phaser.Scene {
       this
     );
     this.stageText.setText("Karakoram Mountains");
+    this.playMusic();
   }
 
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea3(this);
-    console.log(this.player.x);
+
+    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+      initPauseScreen(this);
+    }
     // Runs once per frame for the duration of the scene
     if (startCounter(time, this.counterText)) {
       if (this.gameWon) {
@@ -64,6 +68,7 @@ class Stage3 extends Phaser.Scene {
           }
 
           if (this.player.body.blocked.down) {
+            playJumpSound(this);
             this.player.setVelocityY(-1100);
           }
         }
@@ -103,11 +108,16 @@ class Stage3 extends Phaser.Scene {
     }
   }
   stageDone() {
+    this.music.stop();
     if (!practiceMode) {
       gameState.scene = "Stage4";
       this.scene.start("Stage4");
     } else {
       this.scene.start("Menu");
     }
+  }
+  playMusic() {
+    this.music = this.sound.add("ice_audio", musicConfig);
+    this.music.play();
   }
 }

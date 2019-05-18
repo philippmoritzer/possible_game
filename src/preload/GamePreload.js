@@ -6,11 +6,14 @@ class GamePreload extends Phaser.Scene {
   preload() {
     // Runs once, loads up assets like images and audio
 
+    //load spritesheet + tileset
     this.load.spritesheet("dude", "assets/sprites/character.png", {
       frameWidth: 48,
       frameHeight: 48
     });
     this.load.image("tileset", "assets/tilesets/Platformer tiles.png");
+
+    //load menu assets
     this.load.image("options_button", "./assets/gui/options_button.png");
     this.load.image("play_button", "./assets/gui/play_button.png");
     this.load.image("logo", "./assets/gui/logo.png");
@@ -55,6 +58,7 @@ class GamePreload extends Phaser.Scene {
       "./assets/gui/levelselect/moon_text.png"
     );
 
+    //load game-scene assets
     this.load.image(
       "mountains-back",
       "assets/images/background_layer/stage_1/mountains-back.png"
@@ -132,10 +136,20 @@ class GamePreload extends Phaser.Scene {
       "assets/images/background_layer/stage_4/earth.png"
     );
 
+    //load Tiled-maps
     this.load.tilemapTiledJSON("map1", "assets/tilemaps/level_1.json");
     this.load.tilemapTiledJSON("map2", "assets/tilemaps/level_2.json");
     this.load.tilemapTiledJSON("map3", "assets/tilemaps/level_3.json");
     this.load.tilemapTiledJSON("map4", "assets/tilemaps/level_4.json");
+
+    //loading sounds
+    this.load.audio("menu_audio", "/assets/sounds/menu_sound.mp3");
+    this.load.audio("hills_audio", "/assets/sounds/hills_sound.mp3");
+    this.load.audio("moon_audio", "/assets/sounds/moon_sound.mp3");
+    this.load.audio("desert_audio", "/assets/sounds/desert_sound.ogg");
+    this.load.audio("ice_audio", "/assets/sounds/ice_sound.mp3");
+    this.load.audio("jump", "/assets/sounds/jump.ogg");
+    this.load.audio("lose", "/assets/sounds/lose.ogg");
 
     loadingBar(this);
   }

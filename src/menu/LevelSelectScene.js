@@ -102,6 +102,7 @@ class LevelSelectScene extends Phaser.Scene {
     });
 
     backButton.on("pointerup", () => {
+      this.music.stop();
       this.scene.start("Menu");
     });
 
@@ -110,16 +111,14 @@ class LevelSelectScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = area_1.x - area_1.width;
       hoverSprite.y = area_1.y;
-
-      console.log("hover");
     });
 
     area_1.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     area_1.on("pointerup", () => {
       practiceMode = true;
+      this.music.stop();
       this.scene.start("Stage1");
     });
 
@@ -128,15 +127,14 @@ class LevelSelectScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = area_2.x - area_2.width;
       hoverSprite.y = area_2.y;
-      console.log("hover");
     });
 
     area_2.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     area_2.on("pointerup", () => {
       practiceMode = true;
+      this.music.stop();
       this.scene.start("Stage2");
     });
 
@@ -145,15 +143,14 @@ class LevelSelectScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = area_3.x - area_3.width;
       hoverSprite.y = area_3.y;
-      console.log("hover");
     });
 
     area_3.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     area_3.on("pointerup", () => {
       practiceMode = true;
+      this.music.stop();
       this.scene.start("Stage3");
     });
     area_4.on("pointerover", () => {
@@ -161,21 +158,20 @@ class LevelSelectScene extends Phaser.Scene {
       hoverSprite.play("walk");
       hoverSprite.x = area_4.x - area_4.width;
       hoverSprite.y = area_4.y;
-      console.log("hover");
     });
 
     area_4.on("pointerout", () => {
       hoverSprite.setVisible(false);
-      console.log("out");
     });
     area_4.on("pointerup", () => {
       practiceMode = true;
+      this.music.stop();
       this.scene.start("Stage4");
     });
+    this.playMusic();
   }
 
   update() {
-    console.log(this.random_background);
     switch (this.random_background) {
       case 1:
         moveTilesArea1(this);
@@ -191,5 +187,9 @@ class LevelSelectScene extends Phaser.Scene {
         moveTilesArea4(this);
         break;
     }
+  }
+  playMusic() {
+    this.music = this.sound.add("menu_audio", musicConfig);
+    this.music.play();
   }
 }

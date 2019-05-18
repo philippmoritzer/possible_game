@@ -29,10 +29,35 @@ const config = {
 
 const game = new Phaser.Game(config);
 
+let musicConfig = {
+  mute: false,
+  volume: 0.05,
+  rate: 1,
+  detune: 0,
+  seek: 0,
+  loop: false,
+  delay: 0
+};
+
+let soundConfig = {
+  mute: false,
+  volume: 0.01,
+  rate: 1,
+  detune: 0,
+  seek: 0,
+  loop: false,
+  delay: 0
+};
+
+console.log(
+  "%cPOSSIBLE GAME - 1.0",
+
+  "background: black; color: white; font-size: x-large; font-family: 'Arial'; padding: 50px;"
+);
+
+console.log(
+  "%cBy Philipp Moritzer - Hannes Lesemann - Pascal Seegers",
+  "background: black; color: white; font-size: large; padding: 25px;"
+);
+
 //useful code to debug
-/*const debugGraphics = this.add.graphics().setAlpha(0.75);
-belowLayer.renderDebug(debugGraphics, {
-  tileColor: null, // Color of non-colliding tiles
-  collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-  faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-});*/
