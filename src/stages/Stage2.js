@@ -48,6 +48,7 @@ class Stage2 extends Phaser.Scene {
   }
 
   update(time, delta) {
+    console.log(time);
     setSceneBackgroundRelativeToCameraArea2(this);
 
     if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {

@@ -46,6 +46,27 @@ class Stage1 extends Phaser.Scene {
     this.triesText.setFill("#000");
     this.stageText.setFill("#000");
     this.stageText.setText("Bluecliff Hills");
+
+    this.infoText = this.add.text(
+      game.renderer.width * 0.3,
+      500,
+      "Jump With Arrow Up (↑) or pointer input to avoid obstacles.",
+      {
+        fontSize: "32px",
+        fill: "#fff"
+      }
+    );
+
+    this.infoText2 = this.add.text(
+      game.renderer.width * 0.3,
+      600,
+      "Press 'space' to pause.",
+      {
+        fontSize: "32px",
+        fill: "#fff"
+      }
+    );
+
     const debugGraphics = this.add.graphics().setAlpha(0.75);
     this.spikeLayer.renderDebug(debugGraphics, {
       tileColor: null, // Color of non-colliding tiles
@@ -57,37 +78,39 @@ class Stage1 extends Phaser.Scene {
 
   update(time, delta) {
     setSceneBackgroundRelativeToCameraArea1(this);
-
-    if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-      initPauseScreen(this);
-    }
     if (startCounter(time, this.counterText)) {
-      if (this.gameWon) {
-        if (this.cursors.up.isDown) {
-          if (this.player.body.blocked.up) {
-            playJumpSound(this);
-            this.player.setVelocityY(1100);
-          } else if (this.player.body.blocked.down) {
-            playJumpSound(this);
-            this.player.setVelocityY(-1100);
+      if (Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+        initPauseScreen(this);
+      }
+      if (startCounter(time, this.counterText)) {
+        if (this.gameWon) {
+          if (this.cursors.up.isDown) {
+            if (this.player.body.blocked.up) {
+              playJumpSound(this);
+              this.player.setVelocityY(1100);
+            } else if (this.player.body.blocked.down) {
+              playJumpSound(this);
+              this.player.setVelocityY(-1100);
+            }
+          }
+
+          moveTilesArea1(this);
+
+          this.player.setVelocityX(400);
+          if (
+            !this.player.body.blocked.down ||
+            !this.player.body.blocked.down
+          ) {
+            this.player.setVelocityX(350);
+          }
+
+          if (this.player.y > 5000) {
+            gameOver(this, this.sceneKey);
+          }
+          if (this.player.y < -5000) {
+            gameOver(this, this.sceneKey);
           }
         }
-
-        moveTilesArea1(this);
-
-        this.player.setVelocityX(400);
-        if (!this.player.body.blocked.down || !this.player.body.blocked.down) {
-          this.player.setVelocityX(350);
-        }
-
-        if (this.player.y > 5000) {
-          gameOver(this, this.sceneKey);
-        }
-        if (this.player.y < -5000) {
-          gameOver(this, this.sceneKey);
-        }
-      } else {
-        this.physics.pause();
       }
     }
   }

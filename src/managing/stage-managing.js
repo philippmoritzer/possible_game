@@ -1,12 +1,21 @@
 function startCounter(time, scoreText) {
-  var counter = 3;
+  var counter;
   if (time > 1000) {
-    counter = 2;
+    counter = 5;
   }
   if (time > 2000) {
-    counter = 1;
+    counter = 4;
   }
   if (time > 3000) {
+    counter = 3;
+  }
+  if (time > 4000) {
+    counter = 2;
+  }
+  if (time > 5000) {
+    counter = 1;
+  }
+  if (time > 6000) {
     counter = "Go!";
     scoreText.setText(counter);
 
@@ -254,15 +263,6 @@ function createBasicLevelSetup(scene) {
 
   scene.cursors = scene.input.keyboard.createCursorKeys();
   scene.started = false;
-  scene.input.on("pointerdown", () => {
-    if (scene.player.body.blocked.down) {
-      scene.player.setVelocityY(-1100);
-      playJumpSound(this);
-    } else if (scene.player.body.blocked.up) {
-      playJumpSound(this);
-      scene.player.setVelocityY(1100);
-    }
-  });
 
   scene.spacebar = scene.input.keyboard.addKey(
     Phaser.Input.Keyboard.KeyCodes.SPACE
@@ -283,6 +283,16 @@ function createBasicLevelSetup(scene) {
   });
   scene.triesText.setScrollFactor(0);
   scene.stageText.setScrollFactor(0);
+
+  scene.input.on("pointerdown", () => {
+    if (scene.player.body.blocked.down) {
+      scene.player.setVelocityY(-1100);
+      playJumpSound(scene);
+    } else if (scene.player.body.blocked.up) {
+      playJumpSound(scene);
+      scene.player.setVelocityY(1100);
+    }
+  });
 }
 
 function gameOver(scene, sceneKey) {
@@ -290,6 +300,8 @@ function gameOver(scene, sceneKey) {
   sound.play();
   scene.gameWon = false;
   scene.music.stop();
+  scene.time = 0;
+  console.log(scene.time);
 
   if (!practiceMode) {
     gameState.scene = sceneKey;
