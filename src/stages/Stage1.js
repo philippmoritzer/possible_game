@@ -11,7 +11,6 @@ class Stage1 extends Phaser.Scene {
   create() {
     this.sceneKey = "Stage1";
     this.counter = 3;
-    this.started = false;
     this.gameWon = true;
 
     initBackgroundLayerArea1(this);
