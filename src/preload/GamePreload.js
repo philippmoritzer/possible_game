@@ -4,8 +4,6 @@ class GamePreload extends Phaser.Scene {
   }
 
   preload() {
-    // Runs once, loads up assets like images and audio
-
     //load spritesheet + tileset
     this.load.spritesheet("dude", "assets/sprites/character.png", {
       frameWidth: 48,
